@@ -1,0 +1,144 @@
+        <p-dialog [(visible)]="editDialog" [style]="{width: '70vw'}" header="{{'societeTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'societeTabPan' | translate}}">
+                        <div class="grid">
+
+
+                                        <div class="field col-12 md:col-4">
+                                            <label for="1">{{'societeIce' | translate}}<span style="color: red;">*</span></label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'societeIce' | translate}}" id="1" [(ngModel)]="item.ice"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validSocieteIce}"  />
+                                            <small class='p-error' *ngIf='!validSocieteIce'>Ice est obligatoire.</small>
+                                        </div>
+
+                                        <div class="field col-12 md:col-4">
+                                            <label for="2">{{'societeSiege' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'societeSiege' | translate}}" id="2" [(ngModel)]="item.siege"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-4">
+                                            <label for="3">{{'societeDernierAnneePayerIs' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="3"
+                                                           placeholder="{{'societeDernierAnneePayerIs' | translate}}" [(ngModel)]="item.dernierAnneePayerIs"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-4">
+                                            <label for="4">{{'societeDernierTrimestrePayerIs' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="4"
+                                                           placeholder="{{'societeDernierTrimestrePayerIs' | translate}}" [(ngModel)]="item.dernierTrimestrePayerIs"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-4">
+                                            <label for="5">{{'societeDernierAnneePayerTva' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="5"
+                                                           placeholder="{{'societeDernierAnneePayerTva' | translate}}" [(ngModel)]="item.dernierAnneePayerTva"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-4">
+                                            <label for="6">{{'societeDernierTrimestrePayerTva' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="6"
+                                                           placeholder="{{'societeDernierTrimestrePayerTva' | translate}}" [(ngModel)]="item.dernierTrimestrePayerTva"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field align-inputswitch col-12  md:col-4">
+                                            <div  class="label-inputswitch">
+                                                <label for="7">{{'societeBloqued' | translate}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch   appendTo="body" id="7"  [(ngModel)]="item.bloqued"
+                                                         >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                    <div class="field col-11 md:col-3">
+                                            <label for="9">{{'societeAbonne' | translate}}</label>
+                                            <p-dropdown   appendTo="body" [options]="abonnes" [(ngModel)]="item.abonne" id="9"[filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true" optionLabel="code" placeholder="{{'societeAbonne' | translate}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateAbonne('Abonne')" class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+                        </div>
+                    </p-tabPanel>
+
+                            <p-tabPanel header="societeStores">
+                                        <div class="grid">
+                                            <div class="col">
+                                                            <div class="field col-12 md:col-6">
+                                                                <label for="1">Libelle<span style="color: red;">*</span></label>
+                                                                <input appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="Libelle"
+                                                                       id="1" [(ngModel)]="storesElement.libelle"
+                                                                       autofocus  [ngClass]="{'ng-invalid ng-dirty' : !validStoresLibelle}"  >
+                                                                <small class='p-error' *ngIf='!validStoresLibelle'>Libelle est obligatoire.</small>
+                                                            </div>
+                                                            <div class="field col-12 md:col-6">
+                                                                <label for="2">Reference<span style="color: red;">*</span></label>
+                                                                <input appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="Reference"
+                                                                       id="2" [(ngModel)]="storesElement.reference"
+                                                                       autofocus  [ngClass]="{'ng-invalid ng-dirty' : !validStoresReference}"  >
+                                                                <small class='p-error' *ngIf='!validStoresReference'>Reference est obligatoire.</small>
+                                                            </div>
+                                                <div class="field col-12 md:col-1">
+                                                    <button pButton pRipple type="button" icon="pi pi-plus" class="mt-4" label="OK" (click)="addStores()"></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card">
+                                                <p-table [value]="item.stores" [scrollable]="true" scrollHeight="200px">
+                                                    <ng-template pTemplate="header">
+                                                        <tr>
+                                                                        <th>Libelle</th>
+                                                                        <th>Reference</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="body" let-p>
+                                                        <tr>
+                                                                        <td>{{p.libelle}}</td>
+                                                                        <td>{{p.reference}}</td>
+                                                            <td>
+                                                                <button (click)="deleteStore(p)" pButton type="button" icon="pi pi-times"  class="p-button-rounded p-button-danger"></button>
+                                                                <button (click)="editStore(p)" pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
+                                                            </td>
+                                                        </tr>
+                                                    </ng-template>
+                                                </p-table>
+                                            </div>
+                                        </div>
+                            </p-tabPanel>
+                </p-tabView>
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-footer">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-abonne-create-admin></app-abonne-create-admin>
+
+
+    </p-dialog>

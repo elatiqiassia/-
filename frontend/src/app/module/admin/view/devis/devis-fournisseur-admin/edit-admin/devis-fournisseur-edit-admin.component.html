@@ -1,0 +1,126 @@
+        <p-dialog [(visible)]="editDialog" [style]="{width: '70vw'}" header="{{'devisFournisseurTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'devisFournisseurTabPan' | translate}}">
+                        <div class="grid">
+
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="1">{{'devisFournisseurReference' | translate}}<span style="color: red;">*</span></label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'devisFournisseurReference' | translate}}" id="1" [(ngModel)]="item.reference"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validDevisFournisseurReference}"  />
+                                            <small class='p-error' *ngIf='!validDevisFournisseurReference'>Reference est obligatoire.</small>
+                                        </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="2">{{'devisFournisseurDateDevis' | translate}}</label>
+                                            <p-calendar appendTo="body" id="2"   [showTime]="true" [showSeconds]="false" placeholder="{{'devisFournisseurDateDevis' | translate}}"  [(ngModel)]="item.dateDevis"
+                                                      >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="3">{{'devisFournisseurTotal' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="3"
+                                                           placeholder="{{'devisFournisseurTotal' | translate}}" [(ngModel)]="item.total"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="4">{{'devisFournisseurDescription' | translate}}</label>
+                                            <textarea appendTo="body" id="4" pInputTextarea rows="5" cols="30" placeholder="{{'devisFournisseurDescription' | translate}}"  [(ngModel)]="item.description"
+                                                     ></textarea>
+                                            
+                                        </div>
+
+                                    <div class="field col-11 md:col-5">
+                                            <label for="5">{{'devisFournisseurFournisseur' | translate}}</label>
+                                            <p-dropdown   appendTo="body" [options]="fournisseurs" [(ngModel)]="item.fournisseur" id="5"[filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true" optionLabel="nom" placeholder="{{'devisFournisseurFournisseur' | translate}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+
+                            <p-tabPanel header="devisFournisseurDevisItemFournisseurs">
+                                <p-tabView [(activeIndex)]="activeTab">
+                                    <p-tabPanel header="Création">
+                                        <div class="grid">
+                                                            <div class="field col-11 md:col-3">
+                                                                <label>Produit</label>
+                                                                <p-dropdown appendTo="body" [options]="produits" [(ngModel)]="devisItemFournisseursElement.produit"
+                                                                        id="1"  [filter]="true" filterMatchMode="contains" [showClear]="true"
+                                                                        optionLabel="libelle" placeholder="Produit"  >
+                                                                </p-dropdown>
+                                                                
+                                                            </div>
+                                                            <div class="field col-12 md:col-4">
+                                                                <label for="2">Prix unitaire</label>
+                                                                <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="prixUnitaire" [(ngModel)]="devisItemFournisseursElement.prixUnitaire" placeholder="Prix unitaire"  ></p-inputNumber>
+                                                                
+                                                            </div>
+                                                            <div class="field col-12 md:col-4">
+                                                                <label for="3">Quantite</label>
+                                                                <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="quantite" [(ngModel)]="devisItemFournisseursElement.quantite" placeholder="Quantite"  ></p-inputNumber>
+                                                                
+                                                            </div>
+                                                            <div class="field col-12 md:col-4">
+                                                                <label for="4">Remise</label>
+                                                                <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="remise" [(ngModel)]="devisItemFournisseursElement.remise" placeholder="Remise"  ></p-inputNumber>
+                                                                
+                                                            </div>
+                                                <div class="field col-12 md:col-1">
+                                                    <button pButton pRipple type="button" icon="pi pi-plus" class="mt-4" label="OK" (click)="addDevisItemFournisseurs()"></button>
+                                                </div>
+                                        </div>
+                                    </p-tabPanel>
+                                    <p-tabPanel header="Liste {{item.devisItemFournisseurs?.length > 0 ? '(' + item.devisItemFournisseurs?.length + ')' : ''}}">
+                                            <div class="card">
+                                                <p-table [value]="item.devisItemFournisseurs" [scrollable]="true" scrollHeight="200px">
+                                                    <ng-template pTemplate="header">
+                                                        <tr>
+                                                                        <th>Produit</th>
+                                                                        <th>Prix unitaire</th>
+                                                                        <th>Quantite</th>
+                                                                        <th>Remise</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="body" let-p>
+                                                        <tr>
+                                                                    <td>{{p.produit?.libelle}}</td>
+                                                                        <td>{{p.prixUnitaire}}</td>
+                                                                        <td>{{p.quantite}}</td>
+                                                                        <td>{{p.remise}}</td>
+                                                            <td>
+                                                                <button (click)="deleteDevisItemFournisseur(p)" pButton type="button" icon="pi pi-times"  class="p-button-rounded p-button-danger"></button>
+                                                                <button (click)="editDevisItemFournisseur(p)" pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
+                                                            </td>
+                                                        </tr>
+                                                    </ng-template>
+                                                </p-table>
+                                            </div>
+                                    </p-tabPanel>
+                                </p-tabView>
+                            </p-tabPanel>
+                </p-tabView>
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-footer">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+
+
+    </p-dialog>

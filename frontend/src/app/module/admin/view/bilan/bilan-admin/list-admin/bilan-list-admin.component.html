@@ -1,0 +1,492 @@
+<div class="grid">
+    <div class="col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                                        <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-success mr-2 mb-2" (click)="openCreate('Bilan')"></button>
+                    <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()></button>
+                    <button pButton pRipple label=" {{'search' | translate}}" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}" class="p-button-warning mr-2 mb-2" (click)="this.showSearch()"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label=" {{'export' | translate}}" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <input class="mr-2" pInputText id="1" type="text"  [(ngModel)]="criteria.refLike">
+                            <label for="1">{{'Ref' | translate}}</label>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.anneeMin" id="2-1"></p-inputNumber>
+                            <label for="2-1">{{'Annee' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.anneeMax" id="2-2"></p-inputNumber>
+                            <label for="2-2">{{'Annee' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="societes" [(ngModel)]="criteria.societe" id="3" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Societe' | translate}}" optionLabel="ice">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.immobilisationsIncorporellesMin" id="4-1"></p-inputNumber>
+                            <label for="4-1">{{'Immobilisations incorporelles' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.immobilisationsIncorporellesMax" id="4-2"></p-inputNumber>
+                            <label for="4-2">{{'Immobilisations incorporelles' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.immobilisationsCorporellesMin" id="5-1"></p-inputNumber>
+                            <label for="5-1">{{'Immobilisations corporelles' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.immobilisationsCorporellesMax" id="5-2"></p-inputNumber>
+                            <label for="5-2">{{'Immobilisations corporelles' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.immobilisationsFinancieresMin" id="6-1"></p-inputNumber>
+                            <label for="6-1">{{'Immobilisations financieres' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.immobilisationsFinancieresMax" id="6-2"></p-inputNumber>
+                            <label for="6-2">{{'Immobilisations financieres' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalActifImmoboliseMin" id="7-1"></p-inputNumber>
+                            <label for="7-1">{{'Total actif immobolise' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalActifImmoboliseMax" id="7-2"></p-inputNumber>
+                            <label for="7-2">{{'Total actif immobolise' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.stocksMin" id="8-1"></p-inputNumber>
+                            <label for="8-1">{{'Stocks' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.stocksMax" id="8-2"></p-inputNumber>
+                            <label for="8-2">{{'Stocks' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.creancesClientsMin" id="9-1"></p-inputNumber>
+                            <label for="9-1">{{'Creances clients' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.creancesClientsMax" id="9-2"></p-inputNumber>
+                            <label for="9-2">{{'Creances clients' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalActifCirculantMin" id="10-1"></p-inputNumber>
+                            <label for="10-1">{{'Total actif circulant' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalActifCirculantMax" id="10-2"></p-inputNumber>
+                            <label for="10-2">{{'Total actif circulant' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.depotEnBanqueMin" id="11-1"></p-inputNumber>
+                            <label for="11-1">{{'Depot en banque' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.depotEnBanqueMax" id="11-2"></p-inputNumber>
+                            <label for="11-2">{{'Depot en banque' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.avoirEnCaisseMin" id="12-1"></p-inputNumber>
+                            <label for="12-1">{{'Avoir en caisse' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.avoirEnCaisseMax" id="12-2"></p-inputNumber>
+                            <label for="12-2">{{'Avoir en caisse' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalTresorieActifMin" id="13-1"></p-inputNumber>
+                            <label for="13-1">{{'Total tresorie actif' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalTresorieActifMax" id="13-2"></p-inputNumber>
+                            <label for="13-2">{{'Total tresorie actif' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalActifMin" id="14-1"></p-inputNumber>
+                            <label for="14-1">{{'Total actif' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalActifMax" id="14-2"></p-inputNumber>
+                            <label for="14-2">{{'Total actif' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.capitalPersonnelMin" id="15-1"></p-inputNumber>
+                            <label for="15-1">{{'Capital personnel' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.capitalPersonnelMax" id="15-2"></p-inputNumber>
+                            <label for="15-2">{{'Capital personnel' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.empruntsMin" id="16-1"></p-inputNumber>
+                            <label for="16-1">{{'Emprunts' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.empruntsMax" id="16-2"></p-inputNumber>
+                            <label for="16-2">{{'Emprunts' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.resultatMin" id="17-1"></p-inputNumber>
+                            <label for="17-1">{{'Resultat' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.resultatMax" id="17-2"></p-inputNumber>
+                            <label for="17-2">{{'Resultat' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalFinnancementPermanantMin" id="18-1"></p-inputNumber>
+                            <label for="18-1">{{'Total finnancement permanant' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalFinnancementPermanantMax" id="18-2"></p-inputNumber>
+                            <label for="18-2">{{'Total finnancement permanant' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.dettesFournisseursMin" id="19-1"></p-inputNumber>
+                            <label for="19-1">{{'Dettes fournisseurs' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.dettesFournisseursMax" id="19-2"></p-inputNumber>
+                            <label for="19-2">{{'Dettes fournisseurs' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.autresDettesCirculantesMin" id="20-1"></p-inputNumber>
+                            <label for="20-1">{{'Autres dettes circulantes' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.autresDettesCirculantesMax" id="20-2"></p-inputNumber>
+                            <label for="20-2">{{'Autres dettes circulantes' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalPassifCirculantMin" id="21-1"></p-inputNumber>
+                            <label for="21-1">{{'Total passif circulant' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalPassifCirculantMax" id="21-2"></p-inputNumber>
+                            <label for="21-2">{{'Total passif circulant' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalPassifMin" id="22-1"></p-inputNumber>
+                            <label for="22-1">{{'Total passif' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalPassifMax" id="22-2"></p-inputNumber>
+                            <label for="22-2">{{'Total passif' | translate}} Max</label>
+                       </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="{{'validate' | translate}}" icon="pi pi-sort-amount-down" class="p-button-info mr-2" (click)="findPaginatedByCriteria()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="items" [columns]="cols" [rows]="8" [paginator]="false"
+                    [globalFilterFields]="['ref', 'annee', 'societeice', 'immobilisationsIncorporelles', 'immobilisationsCorporelles', 'immobilisationsFinancieres', 'totalActifImmobolise', 'stocks', 'creancesClients', 'totalActifCirculant', 'depotEnBanque', 'avoirEnCaisse', 'totalTresorieActif', 'totalActif', 'capitalPersonnel', 'emprunts', 'resultat', 'totalFinnancementPermanant', 'dettesFournisseurs', 'autresDettesCirculantes', 'totalPassifCirculant', 'totalPassif']" [(selection)]="selections"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                    currentPageReportTemplate="{{'Les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
+                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column flex-row justify-content-between table-header">
+                        <h5 class="p-m-0">{{'bilanHeader' | translate}}</h5>
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="{{'searchInput' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                                
+                        <th pSortableColumn="ref">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Ref' | translate}}</span>
+                                <p-sortIcon field="ref"></p-sortIcon>
+                                <p-columnFilter type="text" field="element.ref" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="annee">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Annee' | translate}}</span>
+                                <p-sortIcon field="annee"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="societe">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Societe' | translate}}</span>
+                                <p-sortIcon field="societe"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="immobilisationsIncorporelles">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Immobilisations incorporelles' | translate}}</span>
+                                <p-sortIcon field="immobilisationsIncorporelles"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="immobilisationsCorporelles">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Immobilisations corporelles' | translate}}</span>
+                                <p-sortIcon field="immobilisationsCorporelles"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="immobilisationsFinancieres">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Immobilisations financieres' | translate}}</span>
+                                <p-sortIcon field="immobilisationsFinancieres"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="totalActifImmobolise">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total actif immobolise' | translate}}</span>
+                                <p-sortIcon field="totalActifImmobolise"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="stocks">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Stocks' | translate}}</span>
+                                <p-sortIcon field="stocks"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="creancesClients">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Creances clients' | translate}}</span>
+                                <p-sortIcon field="creancesClients"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                <!-- 
+                        <th pSortableColumn="totalActifCirculant">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total actif circulant' | translate}}</span>
+                                <p-sortIcon field="totalActifCirculant"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="depotEnBanque">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Depot en banque' | translate}}</span>
+                                <p-sortIcon field="depotEnBanque"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="avoirEnCaisse">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Avoir en caisse' | translate}}</span>
+                                <p-sortIcon field="avoirEnCaisse"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="totalTresorieActif">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total tresorie actif' | translate}}</span>
+                                <p-sortIcon field="totalTresorieActif"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="totalActif">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total actif' | translate}}</span>
+                                <p-sortIcon field="totalActif"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="capitalPersonnel">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Capital personnel' | translate}}</span>
+                                <p-sortIcon field="capitalPersonnel"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="emprunts">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Emprunts' | translate}}</span>
+                                <p-sortIcon field="emprunts"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="resultat">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Resultat' | translate}}</span>
+                                <p-sortIcon field="resultat"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="totalFinnancementPermanant">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total finnancement permanant' | translate}}</span>
+                                <p-sortIcon field="totalFinnancementPermanant"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="dettesFournisseurs">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Dettes fournisseurs' | translate}}</span>
+                                <p-sortIcon field="dettesFournisseurs"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="autresDettesCirculantes">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Autres dettes circulantes' | translate}}</span>
+                                <p-sortIcon field="autresDettesCirculantes"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="totalPassifCirculant">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total passif circulant' | translate}}</span>
+                                <p-sortIcon field="totalPassifCirculant"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="totalPassif">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total passif' | translate}}</span>
+                                <p-sortIcon field="totalPassif"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-element>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="element"></p-tableCheckbox>
+                        </td>
+                            
+                        <td>{{element.ref}}</td>
+                            
+                            
+                        <td>{{element.annee}}</td>
+                            
+                            
+                        <td>{{element.societe?.ice}}</td>
+                            
+                            
+                        <td>{{element.immobilisationsIncorporelles}}</td>
+                            
+                            
+                        <td>{{element.immobilisationsCorporelles}}</td>
+                            
+                            
+                        <td>{{element.immobilisationsFinancieres}}</td>
+                            
+                            
+                        <td>{{element.totalActifImmobolise}}</td>
+                            
+                            
+                        <td>{{element.stocks}}</td>
+                            
+                            
+                        <td>{{element.creancesClients}}</td>
+                            
+                             <!-- 
+                        <td>{{element.totalActifCirculant}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.depotEnBanque}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.avoirEnCaisse}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.totalTresorieActif}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.totalActif}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.capitalPersonnel}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.emprunts}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.resultat}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.totalFinnancementPermanant}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.dettesFournisseurs}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.autresDettesCirculantes}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.totalPassifCirculant}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.totalPassif}}</td>
+                             --> 
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-success mr-2" (click)="edit(element)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info mr-2" (click)="view(element)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="delete(element)"></button>
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning" (click)="duplicate(element)"></button>
+                            <button pButton pRipple icon="pi pi-download" class="p-button-rounded p-button-secondary" (click)="exportPdf(element)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="summary">
+                    <p-paginator  [rows]="10" [totalRecords]="totalRecords" (onPageChange)="onPage($event)"></p-paginator>
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale il {{items ? totalRecords == 1 ? 'y a' : 'y a' : 'y a' }} {{items ? totalRecords : 0 }} {{items ? totalRecords == 1 ? 'bilan' : 'bilans' : 0 }}.
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-bilan-create-admin></app-bilan-create-admin>
+        <app-bilan-edit-admin></app-bilan-edit-admin>
+        <app-bilan-view-admin></app-bilan-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

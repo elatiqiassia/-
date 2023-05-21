@@ -1,0 +1,71 @@
+import {SocieteDto} from './Societe.model';
+import {BaseDto} from 'src/app/zynerator/dto/BaseDto.model';
+
+
+export class BilanDto  extends BaseDto{
+
+    public id: number;
+    public ref: string;
+   public annee: number;
+    public immobilisationsIncorporelles: number;
+    public immobilisationsCorporelles: number;
+    public immobilisationsFinancieres: number;
+    public totalActifImmobolise: number;
+    public stocks: number;
+    public creancesClients: number;
+    public totalActifCirculant: number;
+    public depotEnBanque: number;
+    public avoirEnCaisse: number;
+    public totalTresorieActif: number;
+    public totalActif: number;
+    public capitalPersonnel: number;
+    public emprunts: number;
+    public resultat: number;
+    public totalFinnancementPermanant: number;
+    public dettesFournisseurs: number;
+    public autresDettesCirculantes: number;
+    public totalPassifCirculant: number;
+    public totalPassif: number;
+    public anneeMax: string ;
+    public anneeMin: string ;
+    public immobilisationsIncorporellesMax: string ;
+    public immobilisationsIncorporellesMin: string ;
+    public immobilisationsCorporellesMax: string ;
+    public immobilisationsCorporellesMin: string ;
+    public immobilisationsFinancieresMax: string ;
+    public immobilisationsFinancieresMin: string ;
+    public totalActifImmoboliseMax: string ;
+    public totalActifImmoboliseMin: string ;
+    public stocksMax: string ;
+    public stocksMin: string ;
+    public creancesClientsMax: string ;
+    public creancesClientsMin: string ;
+    public totalActifCirculantMax: string ;
+    public totalActifCirculantMin: string ;
+    public depotEnBanqueMax: string ;
+    public depotEnBanqueMin: string ;
+    public avoirEnCaisseMax: string ;
+    public avoirEnCaisseMin: string ;
+    public totalTresorieActifMax: string ;
+    public totalTresorieActifMin: string ;
+    public totalActifMax: string ;
+    public totalActifMin: string ;
+    public capitalPersonnelMax: string ;
+    public capitalPersonnelMin: string ;
+    public empruntsMax: string ;
+    public empruntsMin: string ;
+    public resultatMax: string ;
+    public resultatMin: string ;
+    public totalFinnancementPermanantMax: string ;
+    public totalFinnancementPermanantMin: string ;
+    public dettesFournisseursMax: string ;
+    public dettesFournisseursMin: string ;
+    public autresDettesCirculantesMax: string ;
+    public autresDettesCirculantesMin: string ;
+    public totalPassifCirculantMax: string ;
+    public totalPassifCirculantMin: string ;
+    public totalPassifMax: string ;
+    public totalPassifMin: string ;
+    public societe: SocieteDto ;
+
+}

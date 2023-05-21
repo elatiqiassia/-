@@ -1,0 +1,73 @@
+import {SocieteCriteria} from './SocieteCriteria.model';
+import {BaseCriteria} from 'src/app/zynerator/criteria/BaseCriteria.model';
+
+
+export class BilanCriteria  extends   BaseCriteria  {
+
+    public id: number;
+    public ref: string;
+    public refLike: string;
+     public annee: number;
+     public anneeMin: number;
+     public anneeMax: number;
+     public immobilisationsIncorporelles: number;
+     public immobilisationsIncorporellesMin: number;
+     public immobilisationsIncorporellesMax: number;
+     public immobilisationsCorporelles: number;
+     public immobilisationsCorporellesMin: number;
+     public immobilisationsCorporellesMax: number;
+     public immobilisationsFinancieres: number;
+     public immobilisationsFinancieresMin: number;
+     public immobilisationsFinancieresMax: number;
+     public totalActifImmobolise: number;
+     public totalActifImmoboliseMin: number;
+     public totalActifImmoboliseMax: number;
+     public stocks: number;
+     public stocksMin: number;
+     public stocksMax: number;
+     public creancesClients: number;
+     public creancesClientsMin: number;
+     public creancesClientsMax: number;
+     public totalActifCirculant: number;
+     public totalActifCirculantMin: number;
+     public totalActifCirculantMax: number;
+     public depotEnBanque: number;
+     public depotEnBanqueMin: number;
+     public depotEnBanqueMax: number;
+     public avoirEnCaisse: number;
+     public avoirEnCaisseMin: number;
+     public avoirEnCaisseMax: number;
+     public totalTresorieActif: number;
+     public totalTresorieActifMin: number;
+     public totalTresorieActifMax: number;
+     public totalActif: number;
+     public totalActifMin: number;
+     public totalActifMax: number;
+     public capitalPersonnel: number;
+     public capitalPersonnelMin: number;
+     public capitalPersonnelMax: number;
+     public emprunts: number;
+     public empruntsMin: number;
+     public empruntsMax: number;
+     public resultat: number;
+     public resultatMin: number;
+     public resultatMax: number;
+     public totalFinnancementPermanant: number;
+     public totalFinnancementPermanantMin: number;
+     public totalFinnancementPermanantMax: number;
+     public dettesFournisseurs: number;
+     public dettesFournisseursMin: number;
+     public dettesFournisseursMax: number;
+     public autresDettesCirculantes: number;
+     public autresDettesCirculantesMin: number;
+     public autresDettesCirculantesMax: number;
+     public totalPassifCirculant: number;
+     public totalPassifCirculantMin: number;
+     public totalPassifCirculantMax: number;
+     public totalPassif: number;
+     public totalPassifMin: number;
+     public totalPassifMax: number;
+  public societe: SocieteCriteria ;
+  public societes: Array<SocieteCriteria> ;
+
+}

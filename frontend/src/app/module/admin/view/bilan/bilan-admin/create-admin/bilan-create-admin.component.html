@@ -1,0 +1,184 @@
+        <p-dialog [(visible)]="createDialog" [style]="{width: '70vw'}" header="{{'bilanTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                        <p-tabView>
+                            <p-tabPanel header="{{'{{'bilanTabPan' | translate}}' | translate}}">
+                                <div class="grid">
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="1">{{'bilanRef' | translate}}<span style="color: red;">*</span></label>
+                                                    <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'bilanRef' | translate}}" id="1" [(ngModel)]="item.ref"
+                                                            [ngClass]="{'ng-invalid ng-dirty' : !validBilanRef}"  />
+                                                    <small class='p-error' *ngIf='!validBilanRef'>Ref est obligatoire.</small>
+                                                </div>
+
+
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="2">{{'bilanAnnee' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="2" placeholder="{{'bilanAnnee' | translate}}" [(ngModel)]="item.annee"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                            <div class="field col-11 md:col-2">
+                                                <label for="3">{{'bilanSociete' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="societes" [(ngModel)]="item.societe" id="3" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="ice" placeholder="{{'bilanSociete' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="4">{{'bilanImmobilisationsIncorporelles' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="4" placeholder="{{'bilanImmobilisationsIncorporelles' | translate}}" [(ngModel)]="item.immobilisationsIncorporelles"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="5">{{'bilanImmobilisationsCorporelles' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="5" placeholder="{{'bilanImmobilisationsCorporelles' | translate}}" [(ngModel)]="item.immobilisationsCorporelles"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="6">{{'bilanImmobilisationsFinancieres' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="6" placeholder="{{'bilanImmobilisationsFinancieres' | translate}}" [(ngModel)]="item.immobilisationsFinancieres"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="7">{{'bilanTotalActifImmobolise' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="7" placeholder="{{'bilanTotalActifImmobolise' | translate}}" [(ngModel)]="item.totalActifImmobolise"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="8">{{'bilanStocks' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="8" placeholder="{{'bilanStocks' | translate}}" [(ngModel)]="item.stocks"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="9">{{'bilanCreancesClients' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="9" placeholder="{{'bilanCreancesClients' | translate}}" [(ngModel)]="item.creancesClients"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="10">{{'bilanTotalActifCirculant' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="10" placeholder="{{'bilanTotalActifCirculant' | translate}}" [(ngModel)]="item.totalActifCirculant"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="11">{{'bilanDepotEnBanque' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="11" placeholder="{{'bilanDepotEnBanque' | translate}}" [(ngModel)]="item.depotEnBanque"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="12">{{'bilanAvoirEnCaisse' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="12" placeholder="{{'bilanAvoirEnCaisse' | translate}}" [(ngModel)]="item.avoirEnCaisse"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="13">{{'bilanTotalTresorieActif' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="13" placeholder="{{'bilanTotalTresorieActif' | translate}}" [(ngModel)]="item.totalTresorieActif"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="14">{{'bilanTotalActif' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="14" placeholder="{{'bilanTotalActif' | translate}}" [(ngModel)]="item.totalActif"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="15">{{'bilanCapitalPersonnel' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="15" placeholder="{{'bilanCapitalPersonnel' | translate}}" [(ngModel)]="item.capitalPersonnel"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="16">{{'bilanEmprunts' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="16" placeholder="{{'bilanEmprunts' | translate}}" [(ngModel)]="item.emprunts"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="17">{{'bilanResultat' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="17" placeholder="{{'bilanResultat' | translate}}" [(ngModel)]="item.resultat"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="18">{{'bilanTotalFinnancementPermanant' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="18" placeholder="{{'bilanTotalFinnancementPermanant' | translate}}" [(ngModel)]="item.totalFinnancementPermanant"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="19">{{'bilanDettesFournisseurs' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="19" placeholder="{{'bilanDettesFournisseurs' | translate}}" [(ngModel)]="item.dettesFournisseurs"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="20">{{'bilanAutresDettesCirculantes' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="20" placeholder="{{'bilanAutresDettesCirculantes' | translate}}" [(ngModel)]="item.autresDettesCirculantes"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="21">{{'bilanTotalPassifCirculant' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="21" placeholder="{{'bilanTotalPassifCirculant' | translate}}" [(ngModel)]="item.totalPassifCirculant"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="22">{{'bilanTotalPassif' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="22" placeholder="{{'bilanTotalPassif' | translate}}" [(ngModel)]="item.totalPassif"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                </div>
+                            </p-tabPanel>
+
+                        </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-step">
+                        <div style="margin-left: auto;">
+                            <button pButton pRipple  label="{{'validate' | translate}}"  icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                        </div>
+                        <div>
+                            <button pButton pRipple  label="{{'cancel' | translate}}" icon="pi pi-times" class="p-button-outlined" (click)="hideCreateDialog()"></button>
+                        </div>
+
+                </div>
+            </ng-template>
+
+
+
+    </p-dialog>

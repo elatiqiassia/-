@@ -1,0 +1,112 @@
+
+<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'bilanTabPan' | translate}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'bilanTabPan' | translate}}">
+                <div class="grid">
+                    <div class="field col-12 md:col-3">
+                        <label for="1">{{'Ref' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Ref' | translate}}" autofocus  id="1" [(ngModel)]="item.ref">
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="2">{{'Annee' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="2" [disabled]="true" placeholder="{{'Annee' | translate}}" [(ngModel)]="item.annee"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="3">{{'Societe' | translate}}</label>
+                        <p-dropdown [options]="societes" [(ngModel)]="item.societe" id="3" [disabled]="true" optionLabel="ice" placeholder="{{'Societe' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="4">{{'Immobilisations incorporelles' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="4" [disabled]="true" placeholder="{{'Immobilisations incorporelles' | translate}}" [(ngModel)]="item.immobilisationsIncorporelles"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="5">{{'Immobilisations corporelles' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="5" [disabled]="true" placeholder="{{'Immobilisations corporelles' | translate}}" [(ngModel)]="item.immobilisationsCorporelles"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="6">{{'Immobilisations financieres' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="6" [disabled]="true" placeholder="{{'Immobilisations financieres' | translate}}" [(ngModel)]="item.immobilisationsFinancieres"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="7">{{'Total actif immobolise' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="7" [disabled]="true" placeholder="{{'Total actif immobolise' | translate}}" [(ngModel)]="item.totalActifImmobolise"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="8">{{'Stocks' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="8" [disabled]="true" placeholder="{{'Stocks' | translate}}" [(ngModel)]="item.stocks"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="9">{{'Creances clients' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="9" [disabled]="true" placeholder="{{'Creances clients' | translate}}" [(ngModel)]="item.creancesClients"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="10">{{'Total actif circulant' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="10" [disabled]="true" placeholder="{{'Total actif circulant' | translate}}" [(ngModel)]="item.totalActifCirculant"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="11">{{'Depot en banque' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="11" [disabled]="true" placeholder="{{'Depot en banque' | translate}}" [(ngModel)]="item.depotEnBanque"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="12">{{'Avoir en caisse' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="12" [disabled]="true" placeholder="{{'Avoir en caisse' | translate}}" [(ngModel)]="item.avoirEnCaisse"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="13">{{'Total tresorie actif' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="13" [disabled]="true" placeholder="{{'Total tresorie actif' | translate}}" [(ngModel)]="item.totalTresorieActif"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="14">{{'Total actif' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="14" [disabled]="true" placeholder="{{'Total actif' | translate}}" [(ngModel)]="item.totalActif"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="15">{{'Capital personnel' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="15" [disabled]="true" placeholder="{{'Capital personnel' | translate}}" [(ngModel)]="item.capitalPersonnel"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="16">{{'Emprunts' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="16" [disabled]="true" placeholder="{{'Emprunts' | translate}}" [(ngModel)]="item.emprunts"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="17">{{'Resultat' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="17" [disabled]="true" placeholder="{{'Resultat' | translate}}" [(ngModel)]="item.resultat"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="18">{{'Total finnancement permanant' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="18" [disabled]="true" placeholder="{{'Total finnancement permanant' | translate}}" [(ngModel)]="item.totalFinnancementPermanant"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="19">{{'Dettes fournisseurs' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="19" [disabled]="true" placeholder="{{'Dettes fournisseurs' | translate}}" [(ngModel)]="item.dettesFournisseurs"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="20">{{'Autres dettes circulantes' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="20" [disabled]="true" placeholder="{{'Autres dettes circulantes' | translate}}" [(ngModel)]="item.autresDettesCirculantes"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="21">{{'Total passif circulant' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="21" [disabled]="true" placeholder="{{'Total passif circulant' | translate}}" [(ngModel)]="item.totalPassifCirculant"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="22">{{'Total passif' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="22" [disabled]="true" placeholder="{{'Total passif' | translate}}" [(ngModel)]="item.totalPassif"></p-inputNumber>
+                    </div>
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="grid-footer">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+
+
