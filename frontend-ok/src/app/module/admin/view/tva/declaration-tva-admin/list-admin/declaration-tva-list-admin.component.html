@@ -1,0 +1,300 @@
+<div class="grid">
+    <div class="col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                                        <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-success mr-2 mb-2" (click)="openCreate('DeclarationTva')"></button>
+                    <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()></button>
+                    <button pButton pRipple label=" {{'search' | translate}}" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}" class="p-button-warning mr-2 mb-2" (click)="this.showSearch()"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label=" {{'export' | translate}}" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <input class="mr-2" pInputText id="1" type="text"  [(ngModel)]="criteria.referenceLike">
+                            <label for="1">{{'Reference' | translate}}</label>
+                        </span>
+
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.dateDeclarationFrom"
+                                    id="2-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="2-1">{{'Date declaration' | translate}} Min</label>
+                        </span>
+
+                         <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.dateDeclarationTo"
+                                    id="2-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="2-2">{{'Date declaration' | translate}} Max</label>
+                        </span>
+
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.trimistreMin" id="3-1"></p-inputNumber>
+                            <label for="3-1">{{'Trimistre' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.trimistreMax" id="3-2"></p-inputNumber>
+                            <label for="3-2">{{'Trimistre' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.anneeMin" id="4-1"></p-inputNumber>
+                            <label for="4-1">{{'Annee' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.anneeMax" id="4-2"></p-inputNumber>
+                            <label for="4-2">{{'Annee' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="societes" [(ngModel)]="criteria.societe" id="5" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Societe' | translate}}" optionLabel="ice">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalTvaCollecteMin" id="6-1"></p-inputNumber>
+                            <label for="6-1">{{'Total tva collecte' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalTvaCollecteMax" id="6-2"></p-inputNumber>
+                            <label for="6-2">{{'Total tva collecte' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalTvaDueMin" id="7-1"></p-inputNumber>
+                            <label for="7-1">{{'Total tva due' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.totalTvaDueMax" id="7-2"></p-inputNumber>
+                            <label for="7-2">{{'Total tva due' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.differenceTvaMin" id="8-1"></p-inputNumber>
+                            <label for="8-1">{{'Difference tva' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.differenceTvaMax" id="8-2"></p-inputNumber>
+                            <label for="8-2">{{'Difference tva' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="tauxRetardTvas" [(ngModel)]="criteria.tauxRetardTva" id="9" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Taux retard tva' | translate}}" optionLabel="id">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.montantTvaMin" id="10-1"></p-inputNumber>
+                            <label for="10-1">{{'Montant tva' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.montantTvaMax" id="10-2"></p-inputNumber>
+                            <label for="10-2">{{'Montant tva' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="comptableTraitants" [(ngModel)]="criteria.comptableTraitant" id="11" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Comptable traitant' | translate}}" optionLabel="cin">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="comptableValidateurs" [(ngModel)]="criteria.comptableValidateur" id="12" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Comptable validateur' | translate}}" optionLabel="cin">
+                            </p-dropdown>
+                        </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="{{'validate' | translate}}" icon="pi pi-sort-amount-down" class="p-button-info mr-2" (click)="findPaginatedByCriteria()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="items" [columns]="cols" [rows]="8" [paginator]="false"
+                    [globalFilterFields]="['reference', 'dateDeclaration', 'trimistre', 'annee', 'societeice', 'totalTvaCollecte', 'totalTvaDue', 'differenceTva', 'tauxRetardTvaid', 'montantTva', 'comptableTraitantcin', 'comptableValidateurcin']" [(selection)]="selections"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                    currentPageReportTemplate="{{'Les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
+                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column flex-row justify-content-between table-header">
+                        <h5 class="p-m-0">{{'declarationTvaHeader' | translate}}</h5>
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="{{'searchInput' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                                
+                        <th pSortableColumn="reference">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Reference' | translate}}</span>
+                                <p-sortIcon field="reference"></p-sortIcon>
+                                <p-columnFilter type="text" field="element.reference" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="dateDeclaration">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Date declaration' | translate}}</span>
+                                <p-sortIcon field="dateDeclaration"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="trimistre">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Trimistre' | translate}}</span>
+                                <p-sortIcon field="trimistre"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="annee">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Annee' | translate}}</span>
+                                <p-sortIcon field="annee"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="societe">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Societe' | translate}}</span>
+                                <p-sortIcon field="societe"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="totalTvaCollecte">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total tva collecte' | translate}}</span>
+                                <p-sortIcon field="totalTvaCollecte"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="totalTvaDue">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Total tva due' | translate}}</span>
+                                <p-sortIcon field="totalTvaDue"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="differenceTva">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Difference tva' | translate}}</span>
+                                <p-sortIcon field="differenceTva"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="tauxRetardTva">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Taux retard tva' | translate}}</span>
+                                <p-sortIcon field="tauxRetardTva"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                <!-- 
+                        <th pSortableColumn="montantTva">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Montant tva' | translate}}</span>
+                                <p-sortIcon field="montantTva"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="comptableTraitant">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Comptable traitant' | translate}}</span>
+                                <p-sortIcon field="comptableTraitant"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="comptableValidateur">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Comptable validateur' | translate}}</span>
+                                <p-sortIcon field="comptableValidateur"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-element>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="element"></p-tableCheckbox>
+                        </td>
+                            
+                        <td>{{element.reference}}</td>
+                            
+                            
+                        <td>{{element.dateDeclaration | date :'dd/MM/yyyy HH:mm' }}</td>
+                            
+                            
+                        <td>{{element.trimistre}}</td>
+                            
+                            
+                        <td>{{element.annee}}</td>
+                            
+                            
+                        <td>{{element.societe?.ice}}</td>
+                            
+                            
+                        <td>{{element.totalTvaCollecte}}</td>
+                            
+                            
+                        <td>{{element.totalTvaDue}}</td>
+                            
+                            
+                        <td>{{element.differenceTva}}</td>
+                            
+                            
+                        <td>{{element.tauxRetardTva?.id}}</td>
+                            
+                             <!-- 
+                        <td>{{element.montantTva}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.comptableTraitant?.cin}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.comptableValidateur?.cin}}</td>
+                             --> 
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-success mr-2" (click)="edit(element)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info mr-2" (click)="view(element)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="delete(element)"></button>
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning" (click)="duplicate(element)"></button>
+                            <button pButton pRipple icon="pi pi-download" class="p-button-rounded p-button-secondary" (click)="exportPdf(element)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="summary">
+                    <p-paginator  [rows]="10" [totalRecords]="totalRecords" (onPageChange)="onPage($event)"></p-paginator>
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale il {{items ? totalRecords == 1 ? 'y a' : 'y a' : 'y a' }} {{items ? totalRecords : 0 }} {{items ? totalRecords == 1 ? 'declaration tva' : 'declaration tvas' : 0 }}.
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-declaration-tva-create-admin></app-declaration-tva-create-admin>
+        <app-declaration-tva-edit-admin></app-declaration-tva-edit-admin>
+        <app-declaration-tva-view-admin></app-declaration-tva-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

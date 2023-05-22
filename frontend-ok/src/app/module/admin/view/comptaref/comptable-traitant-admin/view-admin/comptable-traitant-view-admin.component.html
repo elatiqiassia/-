@@ -1,0 +1,36 @@
+
+<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'comptableTraitantTabPan' | translate}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'comptableTraitantTabPan' | translate}}">
+                <div class="grid">
+                    <div class="field col-12 md:col-6">
+                        <label for="1">{{'Cin' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Cin' | translate}}" autofocus  id="1" [(ngModel)]="item.cin">
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="2">{{'Nom' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Nom' | translate}}" autofocus  id="2" [(ngModel)]="item.nom">
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="3">{{'Prenom' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Prenom' | translate}}" autofocus  id="3" [(ngModel)]="item.prenom">
+                    </div>
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="grid-footer">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+
+

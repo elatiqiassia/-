@@ -1,0 +1,51 @@
+        <p-dialog [(visible)]="createDialog" [style]="{width: '70vw'}" header="{{'tauxRetardTvaTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                        <p-tabView>
+                            <p-tabPanel header="{{'tauxRetardTvaTabPan' | translate}}">
+                                <div class="grid">
+
+                                                <div class="field col-12 md:col-6">
+                                                    <label for="1">{{'tauxRetardTvaDateApplicationMin' | translate}}</label>
+                                                    <p-calendar appendTo="body" id="1"  [showTime]="true" [showSeconds]="false" placeholder="{{'tauxRetardTvaDateApplicationMin' | translate}}"  [(ngModel)]="item.dateApplicationMin"
+                                                            dateFormat="{{dateFormat}}"  >
+                                                    </p-calendar>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-6">
+                                                    <label for="2">{{'tauxRetardTvaDateApplicationMax' | translate}}</label>
+                                                    <p-calendar appendTo="body" id="2"  [showTime]="true" [showSeconds]="false" placeholder="{{'tauxRetardTvaDateApplicationMax' | translate}}"  [(ngModel)]="item.dateApplicationMax"
+                                                            dateFormat="{{dateFormat}}"  >
+                                                    </p-calendar>
+                                                    
+                                                </div>
+
+                                                <div class="field col-12 md:col-6">
+                                                    <label for="3">{{'tauxRetardTvaMontant' | translate}}</label>
+                                                    <p-inputNumber class="mb-2 mr-2" id="3" placeholder="{{'tauxRetardTvaMontant' | translate}}" [(ngModel)]="item.montant"  >
+                                                    </p-inputNumber>
+                                                    
+                                                </div>
+
+                                </div>
+                            </p-tabPanel>
+
+                        </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-step">
+                        <div style="margin-left: auto;">
+                            <button pButton pRipple  label="{{'validate' | translate}}"  icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                        </div>
+                        <div>
+                            <button pButton pRipple  label="{{'cancel' | translate}}" icon="pi pi-times" class="p-button-outlined" (click)="hideCreateDialog()"></button>
+                        </div>
+
+                </div>
+            </ng-template>
+
+
+
+    </p-dialog>

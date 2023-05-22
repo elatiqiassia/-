@@ -1,0 +1,47 @@
+        <p-dialog [(visible)]="editDialog" [style]="{width: '70vw'}" header="{{'comptableTraitantTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'comptableTraitantTabPan' | translate}}">
+                        <div class="grid">
+
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="1">{{'comptableTraitantCin' | translate}}<span style="color: red;">*</span></label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'comptableTraitantCin' | translate}}" id="1" [(ngModel)]="item.cin"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validComptableTraitantCin}"  />
+                                            <small class='p-error' *ngIf='!validComptableTraitantCin'>Cin est obligatoire.</small>
+                                        </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="2">{{'comptableTraitantNom' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'comptableTraitantNom' | translate}}" id="2" [(ngModel)]="item.nom"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="3">{{'comptableTraitantPrenom' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'comptableTraitantPrenom' | translate}}" id="3" [(ngModel)]="item.prenom"
+                                                     />
+                                            
+                                        </div>
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-footer">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+
+
+    </p-dialog>
